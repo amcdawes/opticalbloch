@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='Optical Bloch',
-      version='0.1.0',
+      version='0.1',
       description='A Python tool for solving the Optical Bloch equations for \
                    light interacting with an ensemble of atoms.',
       url='http://github.com/tommyogden/opticalbloch',
