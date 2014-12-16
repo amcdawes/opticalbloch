@@ -129,8 +129,6 @@ class OB(object):
         density matrix at each time slice.
         """
 
-        print len(self.c_ops)
-
         # No collapse operators, so states is a list of state vectors
         if len(self.c_ops) == 0:
             states_t = np.zeros((len(self.result.times), self.num_states, 1),
@@ -148,7 +146,8 @@ class OB(object):
         return states_t
 
     def mesolve(self, tlist, rho0=None, td=False, e_ops=[], 
-                args={}, opts=qu.Options(), recalc=True, savefile=None):
+                args={}, opts=qu.Options(), recalc=True, savefile=None,
+                show_pbar=False):
         
         if not rho0:
             rho0 = self.ground_state()*self.ground_state().dag()
@@ -166,14 +165,15 @@ class OB(object):
             else: # If not it's a single QObj
                 H = self.H_0 + self.H_Delta + self.H_I_sum()
 
-            pbar = qu.ui.progressbar.TextProgressBar()
+            if show_pbar:
+                pbar = qu.ui.progressbar.TextProgressBar()
+            else:
+                pbar = qu.ui.progressbar.BaseProgressBar()
 
             self.result = qu.mesolve(H, rho0, tlist,
                                       self.c_ops, e_ops,
                                       args=args, options=opts, 
                                       progress_bar=pbar)
-
-            print self.result
 
             # Only save the file if we have a place to save it.
             if (savefile != None):
