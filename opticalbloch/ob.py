@@ -185,6 +185,19 @@ class OB(object):
 
         return self.result
 
+    def steadystate(self, **kwargs):
+        """ Calculates the steady state of the system in the case of a
+        time-independent interaction, i.e. if we let time go to infinity.
+
+        Returns:
+            rho: The density matrix in the steady state.
+        """
+
+        H = self.H_0 + self.H_Delta + self.H_I_sum()
+        self.rho = qu.steadystate(H, self.c_ops, **kwargs)
+
+        return self.rho
+
 # Main
 
 def main():
