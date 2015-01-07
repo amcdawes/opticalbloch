@@ -1,3 +1,17 @@
+# -*- coding: utf-8 -*-
+
+""" These are time functions provided for using the time-dependent solver.
+
+Q: Why are there multiple versions of each?
+A: The solver will want one list of arguments even if there are multiple 
+time-dependent parts to the Hamiltonian. (Say one laser is ramped on then CW
+    and another is a Gaussian pulse.) To distinguish the arguments we've got 
+    multiple versions. Yes this is wasteful, I would like a better way to do
+    it but this works.
+
+Thomas Ogden <t@ogden.eu>
+"""
+
 import sys
 from numpy import exp, log
 
@@ -77,6 +91,15 @@ def ramp_off_2(t, args):
 
     return ampl_2*(exp(-2*log(2)*((t - centre_2)/width_2)**2)*(t >= centre_2) +
                    (t < centre_2))
+
+def ramp_off_3(t, args):
+
+    ampl_3 = args['ampl_3']
+    width_3 = args['width_3']
+    centre_3 = args['centre_3']
+
+    return ampl_3*(exp(-2*log(2)*((t - centre_3)/width_3)**2)*(t >= centre_3) +
+                   (t < centre_3))
 
 def ramp_onoff_1(t, args):
 
