@@ -1,6 +1,10 @@
 from setuptools import setup
 
+<<<<<<< HEAD
 setup(name='Optical Bloch',
+=======
+setup(name='opticalbloch',
+>>>>>>> develop
       version='0.1',
       description='A Python tool for solving the Optical Bloch equations for \
                    light interacting with an ensemble of atoms.',

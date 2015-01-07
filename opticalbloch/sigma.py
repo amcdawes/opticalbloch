@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """ Transition or 'flip' operators for quantum systems.
 
 Thomas Ogden <t@ogden.eu>
