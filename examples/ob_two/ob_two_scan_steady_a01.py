@@ -156,10 +156,11 @@ def main():
 
     plot(two_scan)
 
-    for fig_num in plt.get_fignums():
+### Save and show figures
 
-        plt.figure(fig_num).savefig('png/'+savename+'_fig'+str(fig_num)+'.png')
-        plt.figure(fig_num).savefig('pdf/'+savename+'_fig'+str(fig_num)+'.pdf')
+    # for fig_num in plt.get_fignums():
+    #     plt.figure(fig_num).savefig('png/'+savename+'_fig'+str(fig_num)+'.png')
+    #     plt.figure(fig_num).savefig('pdf/'+savename+'_fig'+str(fig_num)+'.pdf')
 
     plt.show()
 

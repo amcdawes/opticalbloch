@@ -72,9 +72,9 @@ def main():
 
 ### Save and show figures
 
-    for n in plt.get_fignums():
-        plt.figure(n).savefig('png/'+savename+'_fig'+str(n)+'.png')
-        plt.figure(n).savefig('pdf/'+savename+'_fig'+str(n)+'.pdf')    
+    # for n in plt.get_fignums():
+    #     plt.figure(n).savefig('png/'+savename+'_fig'+str(n)+'.png')
+    #     plt.figure(n).savefig('pdf/'+savename+'_fig'+str(n)+'.pdf')    
 
     plt.show()
 
