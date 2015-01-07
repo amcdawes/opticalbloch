@@ -145,10 +145,3 @@ def ramp_onoff_3(t, args):
                         (t >= off_3) + (t < off_3))
 
     return ampl_3*(ramp_on + ramp_off - 1.)
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    status = main()
-    sys.exit(status)
