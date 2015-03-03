@@ -177,11 +177,11 @@ class OB(object):
 
             # Only save the file if we have a place to save it.
             if (savefile != None):
-                qu.qsave(self.result, filename)
+                qu.qsave(self.result, savefile)
 
         # Otherwise load the steady state rho_v_delta from file
         else:
-            self.result = qu.qload(filename)
+            self.result = qu.qload(savefile)
 
         return self.result
 
