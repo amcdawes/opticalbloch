@@ -55,7 +55,11 @@ def calc_absorption_coeff(k, chi_im):
         alpha: Absorption coefficient [/m]
     """
 
-    return k*chi_im # [/m]
+    n_im = np.sqrt(1. + chi_im)
+
+    alpha = 2.*k*n_im # [/m]
+
+    return alpha
 
 def calc_transmission(alpha, L):
     """ 
@@ -69,3 +73,13 @@ def calc_transmission(alpha, L):
     """
 
     return exp(-alpha*L)
+
+def calc_N_Rb(T):
+    """ Calculates the Rubidium number density [/m3].
+        Taken from ElecSus. """
+    if T<312.46:
+        p=10.0**(4.857-4215./T)
+    else:
+        p=10.0**(8.316-4275./T-1.3102*np.log10(T))
+    N=101325.0*p/(si.k*T)
+    return N
