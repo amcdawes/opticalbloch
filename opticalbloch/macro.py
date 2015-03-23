@@ -6,7 +6,7 @@ solutions of the optical Bloch equations.
 Thomas Ogden <t@ogden.eu>
 """
 
-from scipy import exp
+from scipy import exp, log10, sqrt
 from scipy import constants as si
 
 ### Constants
@@ -55,9 +55,10 @@ def calc_absorption_coeff(k, chi_im):
         alpha: Absorption coefficient [/m]
     """
 
-    n_im = np.sqrt(1. + chi_im)
+    # n_im = sqrt(1. + chi_im)
+    # alpha = 2.*k*n_im # [/m]
 
-    alpha = 2.*k*n_im # [/m]
+    alpha = k*chi_im
 
     return alpha
 
@@ -80,6 +81,6 @@ def calc_N_Rb(T):
     if T<312.46:
         p=10.0**(4.857-4215./T)
     else:
-        p=10.0**(8.316-4275./T-1.3102*np.log10(T))
+        p=10.0**(8.316-4275./T-1.3102*log10(T))
     N=101325.0*p/(si.k*T)
     return N
