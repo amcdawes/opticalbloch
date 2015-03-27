@@ -43,22 +43,39 @@ def calc_susceptibility(tdme, E, N, coh):
 
     return (2.*N*tdme_Cm/si.epsilon_0/E)*coh # []
 
-def calc_absorption_coeff(k, chi_im):
+# def calc_absorption_coeff(k, chi_im):
+#     """ Returns the absorption coefficient as per the Beer-Lambert law, 
+#     (alpha where I = I_0*exp(-alpha*z)) if χ is small.
+
+#     Args:
+#         k: Wavenumber [/m]
+#         chi_im: Imaginary part of the susceptibility []
+
+#     Returns:
+#         alpha: Absorption coefficient [/m]
+#     """
+
+#     # n_im = sqrt(1. + chi_im)
+#     # alpha = 2.*k*n_im # [/m]
+
+#     alpha = k*chi_im
+
+#     return alpha
+
+def calc_absorption_coeff(k, chi):
     """ Returns the absorption coefficient as per the Beer-Lambert law, 
-    (alpha where I = I_0*exp(-alpha*z)) if χ is small.
+    (alpha where I = I_0*exp(-alpha*z)).
 
     Args:
         k: Wavenumber [/m]
-        chi_im: Imaginary part of the susceptibility []
+        chi: Susceptibility []
 
     Returns:
         alpha: Absorption coefficient [/m]
     """
 
-    # n_im = sqrt(1. + chi_im)
-    # alpha = 2.*k*n_im # [/m]
-
-    alpha = k*chi_im
+    n = sqrt(1. + chi)
+    alpha = 2.*k*n.imag # [/m]
 
     return alpha
 
