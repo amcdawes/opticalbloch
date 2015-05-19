@@ -47,6 +47,23 @@ def gaussian_2(t, args):
 
     return ampl_2*exp(-2*log(2)*((t - centre_2)/width_2)**2)
 
+def gaussian_fwhm_1(t, args):
+
+    ampl_1 = args['ampl_1']
+    width_1 = args['fwhm_1']
+    centre_1 = args['centre_1']
+
+    return ampl_1*exp(-4*log(2)*((t - centre_1)/fwhm_1)**2)    
+
+def gaussian_fwhm_2(t, args):
+
+    ampl_2 = args['ampl_2']
+    fwhm_2 = args['fwhm_2']
+    centre_2 = args['centre_2']
+
+    return ampl_2*exp(-4*log(2)*((t - centre_2)/fwhm_2)**2)    
+
+
 def ramp_on_1(t, args):
 
     ampl_1 = args['ampl_1']
