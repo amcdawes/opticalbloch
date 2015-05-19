@@ -13,7 +13,7 @@ Thomas Ogden <t@ogden.eu>
 """
 
 import sys
-from numpy import exp, log
+from numpy import exp, log, sqrt, pi, sinc  
 
 def square_1(t, args):
 
@@ -162,3 +162,10 @@ def ramp_onoff_3(t, args):
                         (t >= off_3) + (t < off_3))
 
     return ampl_3*(ramp_on + ramp_off - 1.)
+
+def sinc_1(t, args):
+
+    ampl = args['ampl_1']
+    width = args['width_1']
+
+    return ampl*sinc(width*t)/sqrt(pi/2.)
