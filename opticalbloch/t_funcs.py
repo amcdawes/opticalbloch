@@ -50,7 +50,7 @@ def gaussian_2(t, args):
 def gaussian_fwhm_1(t, args):
 
     ampl_1 = args['ampl_1']
-    width_1 = args['fwhm_1']
+    fwhm_1 = args['fwhm_1']
     centre_1 = args['centre_1']
 
     return ampl_1*exp(-4*log(2)*((t - centre_1)/fwhm_1)**2)    
