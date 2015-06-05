@@ -25,6 +25,44 @@ def calc_wavenumber(omega_MHz):
 
     return omega_MHz*1.e6/si.c # [/m]
 
+def calc_rabi_freq(electric_field_ampl, tdme):
+    """ Returns a Rabi frequnecy for a given E field and tdme.
+
+    Args:
+        electric_field_ampl [V /m]
+        tdme: transition dipole matrix element [e a_0]
+
+    Returns
+        rabi_freq [2π MHz]
+    """
+
+    a_0 = si.physical_constants['Bohr radius'][0]
+
+    coeff = si.e*a_0/si.hbar
+
+    # tdme_Cm = tdme*si.e*a_0
+    # rabi_freq = electric_field_ampl/si.hbar/(2*pi*1e6)*tdme_Cm # [2π MHz]
+
+    rabi_freq = coeff*electric_field_ampl*tdme/1.e6 # [2π MHz]
+
+    return rabi_freq
+
+def calc_electric_field_ampl(rabi_freq, tdme):
+    """ TODO doc 
+
+        rabi_freq [2π MHz]
+
+    Note: Make sure the 2π factor IS on the rabi freq.
+    """
+
+    a_0 = si.physical_constants['Bohr radius'][0]
+
+    coeff = si.e*a_0/si.hbar
+
+    electric_field_ampl = 1./coeff*rabi_freq*1.e6/tdme # [V /m]
+
+    return electric_field_ampl
+
 def calc_susceptibility(tdme, E, N, coh):
     """ Returns the linear susceptibility (χ) for an ensemble of atoms given
     that a field E generates the given coherence (coh).
