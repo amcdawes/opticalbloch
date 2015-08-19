@@ -63,6 +63,45 @@ def gaussian_fwhm_2(t, args):
 
     return ampl_2*exp(-4*log(2)*((t - centre_2)/fwhm_2)**2)    
 
+def gaussian_fwhm_3(t, args):
+
+    ampl_3 = args['ampl_3']
+    fwhm_3 = args['fwhm_3']
+    centre_3 = args['centre_3']
+
+    return ampl_3*exp(-4*log(2)*((t - centre_3)/fwhm_3)**2)    
+
+def gaussian_fwhm_4(t, args):
+
+    ampl_4 = args['ampl_4']
+    fwhm_4 = args['fwhm_4']
+    centre_4 = args['centre_4']
+
+    return ampl_4*exp(-4*log(2)*((t - centre_4)/fwhm_4)**2)    
+
+def gaussian_fwhm_5(t, args):
+
+    ampl_5 = args['ampl_5']
+    fwhm_5 = args['fwhm_5']
+    centre_5 = args['centre_5']
+
+    return ampl_5*exp(-4*log(2)*((t - centre_5)/fwhm_5)**2)    
+
+def gaussian_fwhm_6(t, args):
+
+    ampl_6 = args['ampl_6']
+    fwhm_6 = args['fwhm_6']
+    centre_6 = args['centre_6']
+
+    return ampl_6*exp(-4*log(2)*((t - centre_6)/fwhm_6)**2)    
+
+def gaussian_fwhm_7(t, args):
+
+    ampl_7 = args['ampl_7']
+    fwhm_7 = args['fwhm_7']
+    centre_7 = args['centre_7']
+
+    return ampl_7*exp(-4*log(2)*((t - centre_7)/fwhm_7)**2)    
 
 def ramp_on_1(t, args):
 
