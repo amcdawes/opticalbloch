@@ -174,6 +174,7 @@ class OB(object):
                                       self.c_ops, e_ops,
                                       args=args, options=opts, 
                                       progress_bar=pbar)
+            self.rho = self.result.states[-1] # Set rho to the final state.
 
             # Only save the file if we have a place to save it.
             if (savefile != None):
@@ -182,6 +183,7 @@ class OB(object):
         # Otherwise load the steady state rho_v_delta from file
         else:
             self.result = qu.qload(savefile)
+            self.rho = self.result.states[-1]
 
         return self.result
 
@@ -229,6 +231,8 @@ class OB(object):
             self.result.solver = "essolve"
             self.result.times = tlist
 
+            self.rho = self.result.states[-1] # Set rho to the final state.
+
             # Only save the file if we have a place to save it.
             if (savefile != None):
                 qu.qsave(self.result, savefile)
@@ -236,6 +240,7 @@ class OB(object):
         # Otherwise load the steady state rho_v_delta from file
         else:
             self.result = qu.qload(savefile)
+            self.rho = self.result.states[-1]
 
         return self.result
 
