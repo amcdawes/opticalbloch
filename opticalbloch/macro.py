@@ -118,7 +118,12 @@ def maxwell_boltzmann(v, width=1.):
 
 def calc_N_Rb(T):
     """ Calculates the Rubidium number density [/m3].
-        Taken from ElecSus. """
+        Taken from ElecSus. 
+
+    Args:
+        T: Temperature [K]
+    """
+    
     if T<312.46:
         p=10.0**(4.857-4215./T)
     else:
