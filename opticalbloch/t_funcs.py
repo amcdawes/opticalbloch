@@ -15,6 +15,8 @@ Thomas Ogden <t@ogden.eu>
 import sys
 from numpy import exp, log, sqrt, pi, sinc  
 
+sech = lambda t: 2/(exp(t) + exp(-t))
+
 def square_1(t, args):
 
     on_1 = args['on_1']
@@ -208,3 +210,20 @@ def sinc_1(t, args):
     width = args['width_1']
 
     return ampl*sinc(width*t)/sqrt(pi/2.)
+
+def sech_1(t, args):
+
+    ampl_1 = args['ampl_1']
+    width_1 = args['width_1']
+    centre_1 = args['centre_1']
+
+    return ampl_1*sech((t - centre_1)/width_1)
+
+def sech_2(t, args):
+
+    ampl_2 = args['ampl_2']
+    width_2 = args['width_2']
+    centre_2 = args['centre_2']
+    
+    return ampl_2*sech((t - centre_2)/width_2)
+    
