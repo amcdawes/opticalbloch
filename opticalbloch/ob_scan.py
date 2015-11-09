@@ -23,6 +23,52 @@ class OBScan(object):
         self.rho_Delta = [None]*len(self.Delta_range)
         self.result_Delta = [None]*len(self.Delta_range)
 
+    def essolve(self, Deltas, tlist, rho0=None, recalc=True, savefile=None):
+
+        savefile_exists = os.path.isfile(str(savefile) + '.qu')
+
+        # If 1) we ask for it to be recalculated or 2) it *must* be calculated
+        # because no savefile exists: do the steady state calc. Else load file.
+        if (recalc or not savefile_exists):
+
+            # Reset rho_Delta in case of multiple calcs
+            self.rho_Delta = [None]*len(self.Delta_range)
+            self.result_Delta = [None]*len(self.Delta_range)
+
+            Deltas_i = list(Deltas) # Make copy, don't modify in place                
+
+            Delta_steps = len(self.Delta_range)-1
+
+            for i, Delta_i in enumerate(self.Delta_range):
+
+
+
+                print("\rDelta: " + str(Delta_i) + ", " + str(i) + "/" +
+                      str(Delta_steps))
+
+                # Set the omega of the chosen beam to the current delta step.
+                Deltas_i[self.Delta_idx] = Delta_i
+                self.ob_obj.set_H_Delta(Deltas_i)
+
+                try:
+                    result = self.ob_obj.essolve(tlist, rho0=rho0)
+
+                except ValueError:
+                    print ("Failed to solve.")
+
+                self.result_Delta[i] = result
+                self.rho_Delta[i] = result.states[-1]
+
+            # Only save the file if we have a place to save it
+            if (savefile != None):
+                qu.qsave((self.rho_Delta, self.result_Delta), savefile)
+
+        # Otherwise load the steady state rho_v_delta from file
+        else:
+            (self.rho_Delta, self.result_Delta) = qu.qload(savefile)
+
+        return self.rho_Delta, self.result_Delta
+
     def steadystate(self, Deltas, recalc=True, savefile=None):# , **kwargs):
         
         savefile_exists = os.path.isfile(str(savefile) + '.qu')
@@ -94,7 +140,6 @@ class OBScan(object):
 
         return self.rho_Delta
 
-
     def get_rho_Delta(self):
 
         rho_Delta = np.zeros((len(self.Delta_range), self.ob_obj.num_states, 
@@ -104,6 +149,37 @@ class OBScan(object):
             rho_Delta[i] = self.rho_Delta[i].full()
 
         return rho_Delta
+
+    def get_rho_Delta_element_sum(self, rho_list):
+
+        rho_sum = np.zeros(len(self.Delta_range), dtype=np.complex)
+
+        rho_Delta = self.get_rho_Delta()
+
+        for i, Delta in enumerate(self.Delta_range):
+            for j in rho_list:         
+                rho_sum[i] += rho_Delta[i].item(j)
+
+        return rho_sum
+
+    def get_rho_Delta_element_sum_cutoff(self, rho_list, cutoff):
+
+        rho_sum = np.zeros(len(self.Delta_range), dtype=np.complex)
+
+        rho_Delta = self.get_rho_Delta()
+
+        for j in rho_list:
+            if (j[0] == j[1]): # If we're looking at a population
+                pass
+            else: # we're looking at a coherence
+                omega_0 = (self.ob_obj.H_0[j[1],j[1]] - 
+                           self.ob_obj.H_0[j[0],j[0]])
+                for i, Delta in enumerate(self.Delta_range):
+                    # rho_sum[i] += rho_Delta[i].item(j)
+                    rho_sum[i] += (rho_Delta[i].item(j)*
+                                   (abs(Delta - omega_0) < cutoff))
+
+        return rho_sum
 
 def steadystate_parfor_func(Delta, Delta_idx=0, Deltas=[], ob_obj=None):
 
