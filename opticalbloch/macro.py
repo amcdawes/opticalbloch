@@ -63,6 +63,19 @@ def calc_electric_field_ampl(rabi_freq, tdme):
 
     return electric_field_ampl
 
+def calc_electric_field_ampl_from_intensity(I, refr_index=1.):
+    """
+    Args:
+        I: intensity [W/m2]
+        refr_index: refractive index []
+
+    Returns:
+        electric field amplitude [V/m]
+    """
+
+    return sqrt(I/(refr_index*si.c*si.epsilon_0)) # [V/m]
+
+
 def calc_susceptibility(tdme, E, N, coh):
     """ Returns the linear susceptibility (χ) for an ensemble of atoms given
     that a field E generates the given coherence (coh).
